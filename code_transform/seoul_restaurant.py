@@ -2,14 +2,18 @@ import findspark
 findspark.init()
 import pyspark
 
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, isnan, count, when, isnull, coalesce, translate, regexp_replace
+import pandas as pd
+import numpy as np
+
+from sqlalchemy import create_engine
+import pymysql
+
+
 def pre_proc():
     myConf = pyspark.SparkConf()
     spark = pyspark.sql.SparkSession.builder.getOrCreate()
-
-    from pyspark.sql import SparkSession
-    from pyspark.sql.functions import col, isnan, count, when, isnull, coalesce, translate, regexp_replace
-    import pandas as pd
-    import numpy as np
 
     #spark = SparkSession.builder.master('local').appName('myCount').getOrCreate()
 
@@ -159,12 +163,10 @@ def pre_proc():
     #seoul.to_csv("raw_data/seoul_result.csv", index=False, encoding='utf-8-sig')
 
     # DB적재
-    from sqlalchemy import create_engine
-    import pymysql
     pymysql.install_as_MySQLdb()
 
-    user="root"
-    password="1234"
+    user="user"
+    password="password"
     url="localhost:3306/airflow_test"
     table="seoul_restarant"
 

@@ -5,7 +5,7 @@ import numpy as np
 
 def api_seoul_metr():
 
-    key = "hUjocrzIzyY2OTHu%2B1Y3%2B2fiZN5UiqpxVVqJTHuKN6MWABYTvt7mPdUaE5Ai8tY5%2F3ykm2FU22a07R%2ByeEM%2FGg%3D%3D"
+    key = "key"
     line1_resp = requests.get(f"https://api.odcloud.kr/api/15041300/v1/uddi:90c8cf16-7bc9-42a4-a219-9a54f47768ed?page=1&perPage=97&serviceKey={key}")
     line2_resp = requests.get(f"https://api.odcloud.kr/api/15041301/v1/uddi:3ecd8bc2-34ea-4860-a788-bf2578754ad9?page=1&perPage=50&serviceKey={key}")
     line3_resp = requests.get(f"https://api.odcloud.kr/api/15041302/v1/uddi:e654fca8-d6d5-4977-bf0d-a4ebea52d5b6?page=1&perPage=41&serviceKey={key}")

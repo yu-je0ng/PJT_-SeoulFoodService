@@ -1,6 +1,8 @@
 import findspark
 findspark.init()
 import pyspark
+from sqlalchemy import create_engine
+import pymysql
 
 def pre_proc():
     myConf = pyspark.SparkConf()
@@ -18,12 +20,11 @@ def pre_proc():
 
     df = df.select("*").toPandas()
 
-    from sqlalchemy import create_engine
-    import pymysql
+    
     pymysql.install_as_MySQLdb()
 
-    user="root"
-    password="1234"
+    user="user"
+    password="password"
     url="localhost:3306/airflow_test"
     dbtable="seoul_metro_station"
 

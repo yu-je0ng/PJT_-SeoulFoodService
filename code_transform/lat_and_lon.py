@@ -1,17 +1,17 @@
 import findspark
 findspark.init()
 import pyspark
+import pandas as pd
+import numpy as np
+import pyproj
+import folium
 
 def pre_proc():
     myConf = pyspark.SparkConf()
     spark = pyspark.sql.SparkSession.builder.getOrCreate()
 
-    import pandas as pd
-    import numpy as np
-    import pyproj
-    import folium
 
-    # 불러오기
+    # 데이터 불러오기
     df = pd.read_csv("/home/ubuntu/raw_data/processing_data/seoul_ready.csv", encoding="utf-8", usecols=['X','Y'])
 
     # XY설정해주기

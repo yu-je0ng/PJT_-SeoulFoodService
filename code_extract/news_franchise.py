@@ -42,7 +42,7 @@ if __name__ == '__main__':
             except:
                 pass
 
-    print(all_df)
+    # print(all_df)
 
     all_df.drop([0], axis=1, inplace=True)
     all_df.reset_index(drop=True, inplace=True)

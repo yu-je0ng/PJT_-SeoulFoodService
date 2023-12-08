@@ -11,10 +11,10 @@ from wordcloud import WordCloud
 
 
 def data_load(db, table):
-    user_id = 'root'
-    user_pw = '1234'
-    ip = '35.79.131.28'
-    port = '3306'
+    user_id = 'user_id'
+    user_pw = 'user_pw'
+    ip = 'ip'
+    port = 'port'
     
     db_connection_path = f'mysql+mysqldb://{user_id}:{user_pw}@{ip}:{port}/{db}'
     

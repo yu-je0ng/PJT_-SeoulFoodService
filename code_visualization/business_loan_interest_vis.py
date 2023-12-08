@@ -6,7 +6,7 @@ import pymysql
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
-conn = pymysql.connect(host='35.79.131.28', user='root', password='1234', db='team03', charset='utf8')
+conn = pymysql.connect(host='host', user='user', password='password', db='team03', charset='utf8')
 
 cursor = conn.cursor()
 sql = "select * from business_loan_interest;"

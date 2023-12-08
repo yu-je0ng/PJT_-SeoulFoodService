@@ -7,7 +7,7 @@ from pprint import pprint
 
 def crawl_seoul_restaurant():
 
-    key = "5450686d766e6f6b3937656b725948"
+    key = "key"
     d_type = 'xml'
     start_page = '1'
     end_page = '1000'

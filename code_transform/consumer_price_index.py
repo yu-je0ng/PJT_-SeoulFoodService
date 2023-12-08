@@ -42,8 +42,8 @@ def pre_proc():
 
     pymysql.install_as_MySQLdb()
 
-    user="root"
-    password="1234"
+    user="user"
+    password="password"
     url="localhost:3306/airflow_test"
     table="consumer_price_index"
     db_connection = create_engine(f'mysql+mysqldb://{user}:{password}@{url}', encoding='utf-8')

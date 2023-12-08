@@ -22,8 +22,8 @@ def pre_proc():
     # db 저장
     pymysql.install_as_MySQLdb()
 
-    user="root"
-    password="1234"
+    user="user"
+    password="password"
     url="localhost:3306/airflow_test"
     dbtable="seoul_store_data_pre_proc"
 

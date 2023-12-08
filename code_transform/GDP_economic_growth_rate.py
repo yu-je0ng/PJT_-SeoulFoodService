@@ -1,6 +1,8 @@
 import findspark
 findspark.init()
 import pyspark
+from sqlalchemy import create_engine
+import pymysql
 
 def pre_proc_GDP():
     myConf = pyspark.SparkConf()
@@ -18,13 +20,11 @@ def pre_proc_GDP():
     df = df.rename(columns={'index': 'year', '국내총생산(명목GDP)': 'nominal_GDP', '경제성장률(실질GDP성장률)': 'economic_growth_rate'})
 
 
-    from sqlalchemy import create_engine
-    import pymysql
 
     pymysql.install_as_MySQLdb()
 
-    user="root"
-    password="1234"
+    user="user"
+    password="password"
     url="localhost:3306/airflow_test"
     table="GDP_economic_growth_rate"
 

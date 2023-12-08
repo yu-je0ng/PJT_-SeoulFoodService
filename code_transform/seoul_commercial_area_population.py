@@ -2,15 +2,15 @@ import findspark
 findspark.init()
 import pyspark
 
+from pyspark.sql.functions import col, array, struct, explode, avg, lit, bround
+
+from sqlalchemy import create_engine
+import pymysql
+
+
 def pre_proc():
     myConf = pyspark.SparkConf()
     spark = pyspark.sql.SparkSession.builder.getOrCreate()
-
-
-    from pyspark.sql.functions import col, array, struct, explode, avg, lit, bround
-
-    from sqlalchemy import create_engine
-    import pymysql
 
 
     df=spark.read.json("raw_data/crawling_data/seoul_commercial_area_population.json")
@@ -21,24 +21,17 @@ def pre_proc():
 
 
     # 연도별, 분기별 데이터
-
     # 2017, 2018, 2019년도
     # 1~ 4분기.
-
     # 반복문 밖에서 스키마(데이프레임)만들어서 데이터 넣기
 
     df2017_1 = df1.select(explode(col('`2017년1분기`')).alias('2017_1'))
 
     test_df = df2017_1.selectExpr('2017_1.*')
-        # test_df.printSchema()
 
     my_schema = test_df.schema
-        # print(my_schema)
 
     union_df = spark.createDataFrame([], my_schema)
-    # union_df.printSchema()
-    # union_df.show()
-
 
     for i in range(17, 20):
 
@@ -84,12 +77,7 @@ def pre_proc():
         .sort("CD")
 
 
-    # df_2017.sort(col("NM")).show()
-    # df_2017_agg.sort("CD").show()
-
     df = df_2017_agg.join(df_2018_agg, "CD").join(df_2019_agg, "CD")
-
-        # df.sort("CD").show()
 
     # null값이 있는 row 삭제
     df = df.na.drop().sort("CD")
@@ -106,17 +94,14 @@ def pre_proc():
                     , bround("2019REPOP").cast('integer').alias("2019REPOP")\
                     , bround("2019WRC_POPLTN").cast('integer').alias("2019WRC_POPLTN"))
 
-
-    # df.show()
-
     # pyspark -> dataframe
     df = df.select("*").toPandas()
 
     # db 저장
     pymysql.install_as_MySQLdb()
 
-    user="root"
-    password="1234"
+    user="user"
+    password="password"
     url="localhost:3306/airflow_test"
     dbtable="seoul_commercial_area_pop"
 

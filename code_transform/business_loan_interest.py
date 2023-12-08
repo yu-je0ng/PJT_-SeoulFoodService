@@ -2,7 +2,8 @@ import findspark
 findspark.init()
 import pyspark
 from pyspark.sql.functions import *
-
+from sqlalchemy import create_engine
+import pymysql
 
 def pre_proc():
     myConf = pyspark.SparkConf()
@@ -25,24 +26,14 @@ def pre_proc():
     df = df.select("*").toPandas()
 
 
-    from sqlalchemy import create_engine
-    import pymysql
+
     pymysql.install_as_MySQLdb()
 
-    user="root"
-    password="1234"
+    user="user"
+    password="password"
     url="localhost:3306/airflow_test"
     table="business_loan_interest"
 
     db_connection = create_engine(f'mysql+mysqldb://{user}:{password}@{url}', encoding='utf-8')
     df.to_sql(name=table, con=db_connection, if_exists='replace', index=False)
 
-    '''
-    user="root"
-    password="1234" 
-    url="jdbc:mysql://localhost:3306/team03"
-    driver="com.mysql.cj.jdbc.Driver"
-    dbtable="business_loan_interest"
-    
-    df.write.jdbc(url = url, table = dbtable, mode = "error", properties={"driver": driver, "user": user, "password": password})
-    '''

@@ -1,12 +1,13 @@
 import findspark
 findspark.init()
 import pyspark
+import pandas as pd
+from sqlalchemy import create_engine
+import pymysql
 
 def pre_proc():
     myConf = pyspark.SparkConf()
     spark = pyspark.sql.SparkSession.builder.getOrCreate()
-
-    import pandas as pd
 
 
     #불러오기
@@ -15,7 +16,7 @@ def pre_proc():
     # 확인
     # YP_2015_2019.show()
 
-    # 버리기
+    # 필요없는 데이터 삭제
     YP_2015_2019 = YP_2015_2019.drop('전국')
     YP_2015_2019 = YP_2015_2019.drop('부산광역시')
     YP_2015_2019 = YP_2015_2019.drop('대구광역시')
@@ -43,19 +44,16 @@ def pre_proc():
 
     df = df.toPandas()
 
-    # 버리기
+    # 필요없는 데이터 삭제
     df = df.drop([0,1,2,3,4,5,6,7,8,10,11,13,14,16,17,19,20,22,23,24,25,26,27,28,29])
 
     #확인용
-    print(df)
-
-    from sqlalchemy import create_engine
-    import pymysql
+    # print(df)
 
     pymysql.install_as_MySQLdb()
 
-    user="root"
-    password="1234"
+    user="user"
+    password="password"
     url="localhost:3306/airflow_test"
     table="regional_population"
 
